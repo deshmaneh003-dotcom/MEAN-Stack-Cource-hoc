@@ -3,7 +3,7 @@
 
 * {
     margin: 0;
-    padding: ;
+    padding:0px;
     box-sizing: border-box;
     
 }
@@ -60,11 +60,11 @@ body {
 }
 
 .sidebar {
-    padding: 9px;
+    padding: 10px;
     background: #F8FAFD;
     position: fixed;
     bottom: 0;
-    top: 10%;
+    top: 9%;
 }
 
 .compose-btn:hover {
@@ -78,7 +78,7 @@ ul {
 }
 
 .sidebar-nav {
-    padding-left: 10px;
+    padding-left: 20px;
 }
 
 .nev-item {
@@ -96,10 +96,18 @@ ul {
 
 .main-content {
     display: flex;
-    flex-direction: column;
-    margin-left: 16.2%;
-    margin-top: 5%;
+    flex-direction: row;
+    margin-left: 16%;
+    margin-top: 4%;
     padding-left: 0;
+    box-shadow: ba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
+    color: black;
+}
+.box-1{
+     width:95%;
+}
+.box-2{
+     width: 5%;
 }
 
 .email-list {
