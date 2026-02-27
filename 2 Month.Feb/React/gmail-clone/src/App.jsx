@@ -188,7 +188,10 @@ function App() {
 
             {/* Main Content  */}
             <div className="col-md-10 main-content">
-              {
+              <div className="box-1">
+                
+              
+              
              <div className='container'>
                 <div className='row'>
                   <div className='col-md 3'>
@@ -211,9 +214,9 @@ function App() {
 
                 </div>
 
-              </div> }
+              </div> 
 
-              <div className="email-list box-1">
+              <div className="email-list box-1 ">
                 <div className="email-row d-flex align-item-center border-bottom read">
                   <Form.Check type="checkbox" className="email-checkbox p-2" />
                   <button variant="link" className="star-btn p-0 btn p-2">
@@ -631,6 +634,8 @@ function App() {
 
                 </div>
               </div>
+                </div>
+
               <div className="box-2">
                 <img
  
