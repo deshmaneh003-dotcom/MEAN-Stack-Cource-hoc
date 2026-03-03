@@ -1,27 +1,169 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Table from 'react-bootstrap/Table';
+import { ToastContainer, toast } from 'react-toastify';
 import "./style.css"
+import { useState } from 'react';
 
 function App() {
 
+  const [itemname, setItemName] = useState()
+
+console.log(itemnames)
+
+  const handlOnChange = (event) => {
+    setItemName(event.target.value)
+
+    console.log("Typing on Input field");
+  };
+
+  function submitForm(e) {
+    e.preventDefault();
+    console.log("form submitted");
+
+    toast.success("Form submitted", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+
+    });
+
+  }
 
   return (
     <>
-     <h2 className='text-danger text-center my-5'> CRUD - MERN Stack Project Start</h2>
-     <div className='container'>
-      <div className='row'>
-        <div className='col-md-6'>
-              <h3 className='border text-center'>Add Item</h3>
-           </div>
-           <div className='col-md-6'>
-           <h3 className='border text-center'> Item list</h3>
-           </div>
 
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+
+      />
+      <h2 className='text-danger text-center my-5'>CRUD - MERN Stack Project Start</h2>
+      <div className='container'>
+        <div className='row'>
+          <div className='col-md-6'>
+            <h3 className='border text-center'>Create Iteam</h3>
+            <Form>
+              <Row className="mb-3">
+                <Form.Group as={Col} controlId="formGridEmail">
+                  <Form.Label>Item Name</Form.Label>
+                  <Form.Control type="text" placeholder="Enter Item Name" onChange={() => handlOnChange(event)} />
+                </Form.Group>
+
+                <Form.Group as={Col} controlId="formGridZip">
+                  <Form.Label>Discription</Form.Label>
+                  <Form.Control type="text" placeholder="Enter Discription " />
+                </Form.Group>
+
+
+              </Row>
+              <Row className="mb-3">
+                <Form.Group as={Col} controlId="formGridPassword">
+                  <Form.Label>Purchase Price</Form.Label>
+                  <Form.Control type="number" placeholder="Enter Puechase Price" />
+                </Form.Group>
+
+                <Form.Group as={Col} controlId="formGridAddress1">
+                  <Form.Label>Selling Price</Form.Label>
+                  <Form.Control type="number" placeholder="Enter Selling Price" />
+                </Form.Group>
+              </Row>
+
+              <Row className="mb-3">
+                <Form.Group as={Col} controlId="formGridCity">
+                  <Form.Label>Quantity</Form.Label>
+                  <Form.Control type="number" placeholder="Enter Quantity" />
+                </Form.Group>
+
+
+
+
+                <Form.Group as={Col} controlId="formGridState">
+                  <Form.Label>Unit</Form.Label>
+                  <Form.Select defaultValue="Choose unit">
+                    <option>Choose unit</option>
+                    <option>pice</option>
+                    <option>Box</option>
+                    <option>kg</option>
+                    <option>Gram</option>
+                    <option>Litter</option>
+                  </Form.Select>
+                </Form.Group>
+
+
+              </Row>
+
+              <div className='text-center'>
+                <Button variant="primary" type="submit" className='w-50' onClick={submitForm}>
+                  Submit
+                </Button>
+              </div>
+
+            </Form>
+          </div>
+          <div className='col-md-6'>
+            <h3 className='border text-center'>Get Iteam</h3>
+            <Table striped bordered hover>
+              <thead>
+                <tr><th>ID</th>
+                  <th>Item Name</th>
+                  <th>Discription</th>
+                  <th>Purchase Price</th>
+                  <th>Selling Price</th>
+                  <th>Quantity</th>
+                  <th>Unit</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>pen</td>
+                  <td>Gel pen</td>
+                  <td>10</td>
+                  <td>20</td>
+                  <td>10</td>
+                  <td>Box</td>
+                  <td className='d-flex'>
+                    <button className='btn btn-success'>Edit</button>
+                    <button className='btn btn-danger mx-2'>Delete</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Book</td>
+                  <td>Note book</td>
+                  <td>10</td>
+                  <td>20</td>
+                  <td>10</td>
+                  <td>Box</td>
+                  <td className='d-flex'>
+                    <button className='btn btn-success'>Edit</button>
+                    <button className='btn btn-danger mx-2'>Delete</button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </Table>
+          </div>
+        </div>
       </div>
-
-     </div>
-
-
-
     </>
   )
 }
