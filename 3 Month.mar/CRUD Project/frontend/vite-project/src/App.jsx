@@ -12,7 +12,7 @@ function App() {
 
   const [itemname, setItemName] = useState()
 
-console.log(itemnames)
+
 
   const handlOnChange = (event) => {
     setItemName(event.target.value)

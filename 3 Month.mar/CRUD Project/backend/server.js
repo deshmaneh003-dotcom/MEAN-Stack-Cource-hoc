@@ -14,10 +14,28 @@
 
 // 4. get ALL Records - get ALL records from DB and show to UI frontend
 
-const getData = () => {
+//const getData = () => {
 
-}
+//}
 
-function getData(){
+//function getData(){
     
-}
+//}
+
+console.log("Hello Node js Projrct strted");
+const express = require('express')//
+const app = express() //
+const mongoose = require('mongoose')//
+
+app.use(express.json())//
+
+mongoose.connect("mongodb://localhost:27017/item-database").then(() => console.log("mongo DB connected")).catch( (error) =>console.log(error) )
+
+const iteamSchema = new mongoose.Schema({
+
+decription : String,
+sellingPrice : Number
+
+})
+
+const Iteam = new mongoose.model("Iteam",iteamSchema)//
