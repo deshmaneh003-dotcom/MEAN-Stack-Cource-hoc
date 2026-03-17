@@ -5,40 +5,61 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { ToastContainer, toast } from 'react-toastify';
+import axios from "axios"
 
 import "./style.css"
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState } from 'react';  //store Data
+import { useEffect } from 'react'; //Function call After page Load
+import Modal from 'react-bootstrap/Modal';
 
 function App() {
-  const [itemName, setItemName] = useState()
-  const [itemData , setData]= useState()
+  const [itemName, setItemName] = useState() //1 use state hook
+  const [description, setDescription] = useState()
+  const [purchasePrice, setPurchasePrice] = useState()
+  const [sellingPrice, setSellingPrice] = useState()
+  const [quantity, setQuantity] = useState()
+  const [unit, setUnit] = useState()
+  const [itemData, setData] = useState()
+
+  async function SubmitForm(e) {
+    try {
 
 
-  console.log(itemName, 'item name value')
-  const handleOnChange = (event) => {
+      e.preventDefault();
 
-    setItemName(event.target.value)
+      const data = {
+        name: itemName,
+        decription: description,
+        sellingPrice: sellingPrice,
+        purchasePrice: purchasePrice,
+        quantity: quantity,
+        unit: unit
+      };
+
+      console.log(data, "form submitted");
+      const apiResponse = await axios
+        .post("http://localhost:9090/api/create-item", data)
+        .then(console.group("yes")).catch((error) => console
+          .log(error))
+
+      console.log(apiResponse)
+      getAllItemsData();
 
 
-    console.log("Typing on input field");``
-  };
+      toast.success("Form submitted", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
 
-
-  function SubmitForm(e) {
-    e.preventDefault();
-    console.log("Form submitted");
-
-    toast.success("Form submitted", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: false,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
+    } catch (error) {
+      console.log(error)
+    }
 
   }
 
@@ -60,14 +81,47 @@ function App() {
     }
   };
 
-  useEffect (() => {
+  useEffect(() => {
     getAllItemsData();
   }, []);
 
 
   console.log(
-    itemData , "itemData ==>"
+    itemData, "itemData ==>"
   )
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const [id , setId] =useState()
+
+  const openDeleteModle= (id) =>{
+    try{
+      setShow(true);
+      setId(id)
+
+
+      console.log(id,"id==>")
+      console.log("call delete function")
+
+    }catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleDelete = async() =>{
+    try{
+      console.log (-id , "_id==>" );
+      const apiResponse = await axios.delete(`http://localhost:9090/api/delete-item/${id}`)
+      setShow(false)
+      console.log(apiResponse)
+     
+    getAllItemsData();
+   
+    }catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <>
@@ -96,39 +150,57 @@ function App() {
               <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridEmail">
                   <Form.Label>Item Name</Form.Label>
+
                   <Form.Control
                     type="text"
                     placeholder="Enter Item Name"
-                    onChange={() => handleOnChange(event)} />
+                    onChange={(event) => setItemName(event.target.value)}
+                    value={itemName}
+                  />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridZip">
-                  <Form.Label>Descripition</Form.Label>
-                  <Form.Control type="text" placholer="Enter descripition" />
+                  <Form.Label>Description</Form.Label>
+                  <Form.Control type="text" placholer="Enter description"
+                    onChange={(event) => setDescription(event.target.value)}
+                    value={description}
+                  />
                 </Form.Group>
               </Row>
 
               <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridPassword">
                   <Form.Label>Purchase Price</Form.Label>
-                  <Form.Control type="Number" placeholder="Enter Purchase Price" />
+                  <Form.Control type="Number" placeholder="Enter Purchase Price"
+                    onChange={(event) => setPurchasePrice(event.target.value)}
+                    value={purchasePrice}
+                  />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridAddress1">
                   <Form.Label>Selling Price</Form.Label>
-                  <Form.Control type="Number" placeholder="Enter Selling Price" />
+                  <Form.Control type="Number" placeholder="Enter Selling Price"
+                    onChange={(event) => setSellingPrice(event.target.value)}
+                    value={sellingPrice}
+                  />
                 </Form.Group>
               </Row>
 
               <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridCity">
                   <Form.Label>Quantity</Form.Label>
-                  <Form.Control type="Number" placholder="Enter Quantity" />
+                  <Form.Control type="Number" placholder="Enter Quantity"
+
+                    onChange={(event) => setQuantity(event.target.value)}
+                  />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridState">
                   <Form.Label>Unit</Form.Label>
-                  <Form.Select defaultValue="Choose...">
+                  <Form.Select defaultValue="Choose Unit" value={unit}
+                    onChange={(event) => setUnit(event.target.value)}
+                  >
+
                     <option>Choose Unit</option>
                     <option>piecs</option>
                     <option>Box</option>
@@ -157,7 +229,7 @@ function App() {
                 <tr>
                   <th>Id</th>
                   <th>Item Name</th>
-                  <th>Descripition</th>
+                  <th>Description</th>
                   <th>Purchase Price</th>
                   <th>Selling Price</th>
                   <th>Quantity</th>
@@ -166,42 +238,62 @@ function App() {
                 </tr>
               </thead>
               <tbody>
-             
-                {
-                    itemData && 
-                    itemData.map((each ,index) => {
-                      return (
-                         <tr>
-                      
-                  <td>{index + 1}</td>
-                  <td>{each.name}</td>
-                  <td>{each.decription}</td>
-                  <td>{each.purchasePrice}</td>
-                  <td>{each.sellingPrice}</td>
-                  <td>{each.quantity}</td>
-                  <td>{each.unit}</td>
-                  <td className='d-flex'>
-                    <button className='btn btn-success'>Edit</button>
-                    <button className='btn btn-danger mx-2'>
-                      {" "}
-                      Delete
-                    </button>
-                  </td>
-                         
-                         </tr>
 
-                      );
-                    }
+                {
+                  itemData &&
+                  itemData.map((each, index) => {
+                    return (
+                      <tr>
+
+                        <td>{index + 1}</td>
+                        <td>{each.name}</td>
+                        <td>{each.decription}</td>
+                        <td>{each.purchasePrice}</td>
+                        <td>{each.sellingPrice}</td>
+                        <td>{each.quantity}</td>
+                        <td>{each.unit}</td>
+                        <td className='d-flex'>
+                          <button className='btn btn-success'>Edit</button>
+                          <button className='btn btn-danger mx-2'
+                          
+                          onClick={ () => openDeleteModle(each._id)}
+                          >
+                          
+                            Delete
+                          </button>
+                        </td>
+
+                      </tr>
+
+                    );
+                  }
                   )}
 
 
 
-                
+
               </tbody>
             </Table>
           </div>
         </div>
       </div>
+
+     
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete confirmation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you aure wan to delete this Item</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleDelete}>
+            Yes
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            No
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   )
 }
