@@ -26,5 +26,6 @@ const itemsSchema = new mongoose.Schema({
 })
 
 //create collection /table called "Item"
+const Items = mongoose.model("Item", itemsSchema)
 
-module.exports = mongoose.model("Items", itemsSchema)
+module.exports = Items

@@ -8,7 +8,11 @@ const app = express()
 
 //cross 
 const cors = require('cors')
+
+//connect mongodb database
 const { connectDB } = require('./config/db')
+
+const {addItem , editItem , deleteItem ,  getAllItems} = require('./controllers/itemscontrollers')
 
 // frontend converts all data in json format
 app.use(express.json())

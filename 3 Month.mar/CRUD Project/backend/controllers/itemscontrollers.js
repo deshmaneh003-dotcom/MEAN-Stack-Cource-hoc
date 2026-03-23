@@ -1,9 +1,8 @@
 
-import Items from "./../models/itemsModels"
 
+const Items = require('./../models/itemsModels')
 
-
-const addItem = async () => {
+const addItem = async (req,res) => {
     try {
 
         const { name, decription, sellingPrice, purchasePrice, quantity, unit } = req.body //frontend data
@@ -27,7 +26,7 @@ const addItem = async () => {
 }
 
 
-const getAllItems = async () => {
+const getAllItems = async (req,res) => {
     try {
         const items = await Items.find()
 
@@ -40,7 +39,7 @@ const getAllItems = async () => {
 }
 
 
-const deleteItem = async () => {
+const deleteItem = async (req,res) => {
     try {
 
         const { id } = req.params
@@ -57,12 +56,11 @@ const deleteItem = async () => {
 }
 
 
-const editItem = async () => {
+const editItem = async (req,res) => {
     try {
 
     } catch (error) {
         console.log(error)
     }
 }
-
 module.exports = { addItem, getAllItems, deleteItem, editItem }
