@@ -51,47 +51,47 @@ function Homepage() {
     //state to store the item name entered by user
     const [itemData, setData] = useState()
 
-   //Async function to handle from submission and send data to the backend API
+    //Async function to handle from submission and send data to the backend API
     async function SubmitForm(e) {
         try {
 
-          // Prevent the default form submission behavior
+            // Prevent the default form submission behavior
             e.preventDefault();
-          //create an object with all form field value to send to the API
+            //create an object with all form field value to send to the API
             const data = {
                 //mpping itemname state to 'name' field
                 name: itemName,
-               //mpping description state to 'description' field
+                //mpping description state to 'description' field
                 decription: description,
-               //mpping sellingPrice state to 'sellingPrice' field
+                //mpping sellingPrice state to 'sellingPrice' field
                 sellingPrice: sellingPrice,
                 //mpping purchasePrice state to 'purchasePrice' field
                 purchasePrice: purchasePrice,
-                 //mpping quantity state to 'quantity' field
+                //mpping quantity state to 'quantity' field
                 quantity: quantity,
-              //mpping unit state to 'unit' field
+                //mpping unit state to 'unit' field
                 unit: unit
             };
 
-         //Logging the form data to the console for dubugging
+            //Logging the form data to the console for dubugging
             console.log(data, "form submitted");
-        // Sending a POST request to the backend API to create new item
+            // Sending a POST request to the backend API to create new item
             const apiResponse = await axios
                 .post("http://localhost:9090/api/create-item", data)
                 // Logging success message when request is successful
                 .then(console.group("yes")).catch((error) => console
-                 
+
                     .log(error))
 
-          // // Logging error if the request failas
+            // // Logging error if the request failas
             console.log(apiResponse)
-           // calling getAllitemsData to ref the item list after creating a new item
+            // calling getAllitemsData to ref the item list after creating a new item
             getAllItemsData();
-           // showing a succsee toast notification after form is sumited successfuly
+            // showing a succsee toast notification after form is sumited successfuly
             toast.success("Form submitted", {
-           // seting toast position to top-right  corner
+                // seting toast position to top-right  corner
                 position: "top-right",
-            //Y
+                //Y
                 autoClose: 5000,
 
                 hideProgressBar: false,
