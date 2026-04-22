@@ -22,7 +22,6 @@ import Modal from 'react-bootstrap/Modal';
 
 
 
-
 function Items() {
     // usestate - hook we can store vlaue in usestate and that we can update
     // useEffect - side effect perform each page lod it will be call useEffect
@@ -358,7 +357,7 @@ function Items() {
                                     <th>Quantity</th>
 
                                     <th>Unit</th>
-
+                                                                        
                                     <th>Action</th>
                                 </tr>
                             </thead>
