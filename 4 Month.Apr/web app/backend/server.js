@@ -12,6 +12,7 @@ const { connectDB } = require('./config/db')
 const {addItem , editItem , deleteItem ,  getAllItems} = require('./controllers/itemscontrollers')
 const { login, register } = require('./controllers/authControllers')
 const { getDashboardCount } = require('./controllers/dashboardControllers')
+const authMiddleware = require('./authMiddleware/authMiddleware')
 // frontend converts all data in json format
 app.use(express.json())
 //middleware: enable Cross-origin Resource sharing
@@ -26,7 +27,7 @@ app.post("/api/register" , register)
 
 
 //POST API 1- Create Item
-app.post("/api/create-item", addItem)
+app.post("/api/create-item",authMiddleware, addItem)
 // PUT API 2- Update/Edit
 app.put("/api/update-item", editItem)
 // DELETE API - to remove database

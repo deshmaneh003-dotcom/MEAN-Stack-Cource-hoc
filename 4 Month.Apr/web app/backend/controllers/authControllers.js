@@ -10,10 +10,10 @@ const register = async (req, res) => {
 
         const { name, email, pass, city, mobileNo } = req.body
 
-        const existingUser = await Users.findOne({ email : email })
+        const existingUser = await Users.findOne({ email: email })
 
-        if(existingUser){
-            return res.status(400).json({message : "This Email Id Already Register"})
+        if (existingUser) {
+            return res.status(400).json({ message: "This Email Id Already Register" })
         }
 
         const user = await Users.create({
@@ -54,12 +54,12 @@ const login = async (req, res) => {
         const user = await Users.findOne({ email, password: pass })
 
         const token = jwt.sign({ userId: user._id, email: email }, process.env.JWT_SECRET_KEY, {
-            expiresIn: "30d"
+            expiresIn: "1d"
         })
-
+        
         if (user) {
             res.status(201).json({
-                message: "login Successful",
+                message: "Login Successful",
                 token: token
             })
         } else {

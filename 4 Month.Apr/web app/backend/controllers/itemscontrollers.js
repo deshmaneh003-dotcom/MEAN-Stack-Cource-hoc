@@ -2,9 +2,9 @@
 
 const Items = require('./../models/itemsModels')
 
-const addItem = async (req,res) => {
+const addItem = async (req, res) => {
     try {
-
+        console.log(req.userId, " ===> userId ")
         const { name, decription, sellingPrice, purchasePrice, quantity, unit } = req.body //frontend data
 
         const saveItem = new Items(
@@ -14,7 +14,8 @@ const addItem = async (req,res) => {
                 sellingPrice,
                 purchasePrice,
                 quantity,
-                unit
+                unit,
+                userId: req.userId
             }
         )
         await saveItem.save()
@@ -26,7 +27,7 @@ const addItem = async (req,res) => {
 }
 
 
-const getAllItems = async (req,res) => {
+const getAllItems = async (req, res) => {
     try {
         const items = await Items.find()
 
@@ -39,7 +40,7 @@ const getAllItems = async (req,res) => {
 }
 
 
-const deleteItem = async (req,res) => {
+const deleteItem = async (req, res) => {
     try {
 
         const { id } = req.params
@@ -56,7 +57,7 @@ const deleteItem = async (req,res) => {
 }
 
 
-const editItem = async (req,res) => {
+const editItem = async (req, res) => {
     try {
 
     } catch (error) {
